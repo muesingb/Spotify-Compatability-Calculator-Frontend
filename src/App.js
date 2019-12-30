@@ -4,7 +4,7 @@ import './App.css';
 import Spotify from 'spotify-web-api-js';
 
 const spotifyWebApi = new Spotify();
-const backEndLoginURI = "http://localhost:3000"
+const backEndLoginURI = "http://localhost:3001/auth/spotify/callback"
 
 class App extends React.Component {
   constructor() {
@@ -43,7 +43,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     this.getMyTopArtists()
     return (
     <div className="App">
@@ -53,6 +52,8 @@ class App extends React.Component {
       <div>
         Now playing {this.state.loggedIn ? "true" : "false"}
       </div>
+      <p>{process.env.REACT_APP_CLIENT_ID}</p>
+      <p>{process.env.REACT_APP_CLIENT_SECRET}</p>
     </div>
   );
   }
