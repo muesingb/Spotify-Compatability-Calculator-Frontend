@@ -10,23 +10,31 @@ import Login from './containers/Login'
 class App extends React.Component {
 
   state = {
-    currentUser: ""
+    user_data: [],
+    artists_data: [],
+    tracks_data: [],
+    top_artist: {},
+    top_track: {}
   }
 
-  updateCurrentUser = (id) => {
+  updateCurrentUser = (data) => {
     this.setState({
-      currentUser: id
+      user_data: data.user,
+      artists_data: data.artists,
+      tracks_data: data.tracks,
+      top_artist: data.artists[0],
+      top_track: data.tracks[0]
     })
   }
 
   render() {
-    console.log(this.state.currentUser)
+    console.log(this.state)
     return (
     <div className="App">
       <Router>
         <Route exact path="/" render={(routerProps) => <Login {...routerProps}/>}/>
-        <Route path="/user" render={(routerProps) => <UserView {...routerProps} updateCurrentUser={this.updateCurrentUser}/>}/>
-        <Route path="/match" render={(routerProps) => <MatchView {...routerProps} currentUser={this.state.currentUser}/>}/>
+        <Route path="/user" render={(routerProps) => <UserView {...routerProps} {...this.state} updateCurrentUser={this.updateCurrentUser} toggleView={this.toggleView}/>}/>
+        <Route path="/match" render={(routerProps) => <MatchView {...routerProps} {...this.state} currentUser={this.state.currentUser}/>}/>
       </Router>
     </div>
   );
